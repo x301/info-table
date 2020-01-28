@@ -1,3 +1,29 @@
 .wrapper-table {
-    display: flex;
+    padding: 15px;
+    line-height: 1.15;
+}
+
+.info-table  {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.info-table th {
+    width: 100vw;
+    text-transform: uppercase;
+    font-size: 1.2em;
+    border: 1px solid  #ccc;
+    cursor: pointer; 
+}
+
+.info-table th:hover {
+color: #f39c12;
+}
+
+.info-table td {
+    font-size: 1.13em;
+    text-align: center;
+    border: 1px solid  #ccc;
+    letter-spacing: 1.3px;
 }
