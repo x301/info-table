@@ -1,15 +1,16 @@
 import React from "react"
 import "./infoTable.css"
-export default ({ info, onSorted }) => {
+export default ({ info, onSorted, sort, sortField }) => {
+    const sortType = sort === "asc" ? <small>↑</small> : <small>↓</small>
     return (
         <section className="wrapper-table">
             <table className="info-table">
                 <thead><tr>
-                    <th onClick={onSorted.bind(null, "id")}>id</th>
-                    <th onClick={onSorted.bind(null, "firstName")}>firstName</th>
-                    <th onClick={onSorted.bind(null, "lastName")}>lastName</th>
-                    <th onClick={onSorted.bind(null, "email")} >email</th>
-                    <th onClick={onSorted.bind(null, "phone")} >phone</th>
+                    <th onClick={onSorted.bind(null, "id")}>id {sortField === "id" ? sortType : null}</th>
+                    <th onClick={onSorted.bind(null, "firstName")}>firstName {sortField === "firstName" ? sortType : null}</th>
+                    <th onClick={onSorted.bind(null, "lastName")}>lastName {sortField === "lastName" ? sortType : null}</th>
+                    <th onClick={onSorted.bind(null, "email")} >email {sortField === "email" ? sortType : null}</th>
+                    <th onClick={onSorted.bind(null, "phone")} >phone {sortField === "phone" ? sortType : null}</th>
                 </tr>
                 </thead>
                 <tbody>

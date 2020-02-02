@@ -11,14 +11,14 @@ const App = function () {
   const [url, setUrl] = useState("");
   const [info, setInfo] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [sort, setSort] = useState("asc")
+  const [sort, setSort] = useState("asc");
+  const [sortField, setSortField] = useState("id");
   useEffect(() => {
     if (fetchStatus) {
       const fetchTableApi = async () => {
         const res = await fetch(url)
         const data = await (res.json());
-        setInfo(data);
-
+        setInfo(OnSort(data, sortField, sort));
         setLoading(false)
       }
 
@@ -29,16 +29,17 @@ const App = function () {
 
   }, [fetchStatus])
 
-  const onSorted = (sortField) => {
+  const onSorted = (field) => {
     const sortType = sort === "asc" ? "desc" : "asc";
     setSort(sortType);
+    setSortField(field)
     const sortedArr = OnSort(info, sortField, sortType);
     setInfo(sortedArr);
   }
 
   return (
     <section className="App">
-      {fetchStatus ? !loading ? <InfoTable info={info} onSorted={onSorted}>
+      {fetchStatus ? !loading ? <InfoTable info={info} onSorted={onSorted} sort={sort} sortField={sortField}>
       </InfoTable> : <Loader></Loader> :
         <SelectFetch setFetch={setFetch}
           setUrl={setUrl}

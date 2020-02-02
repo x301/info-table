@@ -1,5 +1,4 @@
 export const OnSort = (unsortedArr, col, sortType) => {
-    console.log(sortType)
     const sortedArr = unsortedArr.concat();
     const a = sortedArr[0];
     const b = sortedArr.length - 1;
