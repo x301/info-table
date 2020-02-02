@@ -11,7 +11,7 @@ const App = function () {
   const [url, setUrl] = useState("");
   const [info, setInfo] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [sortType]
+  const [sort, setSort] = useState("asc")
   useEffect(() => {
     if (fetchStatus) {
       const fetchTableApi = async () => {
@@ -30,9 +30,10 @@ const App = function () {
   }, [fetchStatus])
 
   const onSorted = (sortField) => {
-    const sortedArr = OnSort(info, sortField);
-    console.log(info === sortedArr)
-    setInfo([...sortedArr]);
+    const sortType = sort === "asc" ? "desc" : "asc";
+    setSort(sortType);
+    const sortedArr = OnSort(info, sortField, sortType);
+    setInfo(sortedArr);
   }
 
   return (

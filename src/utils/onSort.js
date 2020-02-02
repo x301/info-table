@@ -1,6 +1,6 @@
-export const OnSort = (unsortedArr, col) => {
-    console.log(unsortedArr)
-    const sortedArr = unsortedArr;
+export const OnSort = (unsortedArr, col, sortType) => {
+    console.log(sortType)
+    const sortedArr = unsortedArr.concat();
     const a = sortedArr[0];
     const b = sortedArr.length - 1;
     sortedArr.sort((a, b) => {
@@ -12,5 +12,10 @@ export const OnSort = (unsortedArr, col) => {
         }
         return 0;
     })
-    return sortedArr
+    if (sortType === "asc") {
+        return sortedArr
+    } else if (sortType === "desc") {
+        return sortedArr.reverse()
+    }
+
 }
