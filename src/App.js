@@ -3,7 +3,7 @@ import './App.css';
 import InfoTable from "./components/InfoTable/InfoTable"
 import SelectFetch from "./components/SelectFetch/SelectFetch"
 import Loader from "./components/Loader/Loader"
-
+import { OnSort } from "./utils/onSort"
 
 const App = function () {
 
@@ -11,15 +11,17 @@ const App = function () {
   const [url, setUrl] = useState("");
   const [info, setInfo] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const [sortType]
   useEffect(() => {
     if (fetchStatus) {
       const fetchTableApi = async () => {
         const res = await fetch(url)
         const data = await (res.json());
         setInfo(data);
+
         setLoading(false)
       }
+
       fetchTableApi();
 
     }
@@ -27,9 +29,15 @@ const App = function () {
 
   }, [fetchStatus])
 
+  const onSorted = (sortField) => {
+    const sortedArr = OnSort(info, sortField);
+    console.log(info === sortedArr)
+    setInfo([...sortedArr]);
+  }
+
   return (
     <section className="App">
-      {fetchStatus ? !loading ? <InfoTable info={info}>
+      {fetchStatus ? !loading ? <InfoTable info={info} onSorted={onSorted}>
       </InfoTable> : <Loader></Loader> :
         <SelectFetch setFetch={setFetch}
           setUrl={setUrl}
