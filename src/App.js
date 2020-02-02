@@ -5,8 +5,10 @@ import SelectFetch from "./components/SelectFetch/SelectFetch"
 import Loader from "./components/Loader/Loader"
 import { OnSort } from "./utils/onSort"
 import ReactPaginate from 'react-paginate'
+import SearchTable from "./components/Search/Search"
 
 const App = function () {
+
   const pageSize = 50;
   const [fetchStatus, setFetch] = useState(false);
   const [url, setUrl] = useState("");
@@ -15,8 +17,8 @@ const App = function () {
   const [sort, setSort] = useState("asc");
   const [sortField, setSortField] = useState("id");
   const [pageCount, setPageCount] = useState(0);
-  const [currentPage, setCurrentPage] = useState(0)
-
+  const [currentPage, setCurrentPage] = useState(0);
+  const [search, setSearch] = useState('');
 
 
   useEffect(() => {
@@ -36,6 +38,7 @@ const App = function () {
 
   }, [fetchStatus])
 
+  //set sort method and sort data
   const onSorted = (field) => {
     const sortType = sort === "asc" ? "desc" : "asc";
     setSort(sortType);
@@ -44,23 +47,46 @@ const App = function () {
     setInfo(sortedArr);
   }
 
-  //Get current paginate data 
-  const indexOfLast = (currentPage + 1) * pageSize;
-  const indexOfFirst = indexOfLast - pageSize;
-  const displayData = !!(info) ? info.slice(indexOfFirst, indexOfLast) : null;
+
 
 
   const handlePageChange = ({ selected }) => {
-    setCurrentPage(selected)
-
+    setCurrentPage(selected);
   }
 
+  const handlerSearchPage = value => {
+    setCurrentPage(0);
+    setSearch(value);
+  }
+
+  const getFilteredInfo = (value) => {
+    if (!search) {
+      return info
+    } else {
+      return info.filter(elem => {
+        return elem["firstName"].toLowerCase().includes(search.toLowerCase()) ||
+          elem["lastName"].toLowerCase().includes(search.toLowerCase()) ||
+          elem["phone"].toLowerCase().includes(search.toLowerCase())
+      })
+    }
+  }
+
+  const filteredInfo = getFilteredInfo();
+
+  //Get current paginate data 
+  const indexOfLast = (currentPage + 1) * pageSize;
+  const indexOfFirst = indexOfLast - pageSize;
+  const displayData = !!(filteredInfo) ? filteredInfo.slice(indexOfFirst, indexOfLast) : null;
 
   return (
     <section className="App">
       {
-        fetchStatus ? !loading ? <InfoTable info={displayData} onSorted={onSorted} sort={sort} sortField={sortField}>
-        </InfoTable> : <Loader></Loader> :
+        fetchStatus ? !loading ? <>
+          <SearchTable onSearch={handlerSearchPage}></SearchTable>
+          <InfoTable info={displayData} onSorted={onSorted} sort={sort} sortField={sortField}>
+          </InfoTable>
+        </>
+          : <Loader></Loader> :
           <SelectFetch setFetch={setFetch}
             setUrl={setUrl}
             setLoading={setLoading}>

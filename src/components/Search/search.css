@@ -1,0 +1,32 @@
+.search-wrapper {
+    margin-top: 1em;
+    width: 100vw;
+    position: relative;
+}
+
+.search-form {
+    padding: 1em;
+    float: left;
+}
+.input-contorl {
+    width: 50vw ;
+    height: 2vh;
+    padding: .3em;
+    border: 1px solid black;
+}
+
+.input-contorl:focus {
+   border-color: #3498db;
+   box-shadow: 0 0 10px  #3498db;
+}
+
+.btn-search {
+    margin-left: 1em;
+    height: 2em;
+    width: 5em;
+    background-color: #3498db;
+    color: white;
+    border-collapse: collapse;
+    border: 1px solid #3498db;
+    box-shadow: 0 0 10px  #3498db;
+}
