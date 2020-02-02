@@ -1,6 +1,6 @@
 import React from "react"
 import "./infoTable.css"
-export default ({ info, onSorted, sort, sortField }) => {
+export default ({ info, onSorted, sort, sortField, rowSelect }) => {
     const sortType = sort === "asc" ? <small>↑</small> : <small>↓</small>
     return (
         <section className="wrapper-table">
@@ -14,7 +14,7 @@ export default ({ info, onSorted, sort, sortField }) => {
                 </tr>
                 </thead>
                 <tbody>
-                    {info.map(el => (<tr key={el.id + Math.random()}>
+                    {info.map(el => (<tr key={el.id + Math.random()} onClick={rowSelect.bind(null, el)}>
                         <td >{el.id}</td>
                         <td>{el.firstName}</td>
                         <td>{el.lastName}</td>

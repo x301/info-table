@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import InfoTable from "./components/InfoTable/InfoTable"
 import SelectFetch from "./components/SelectFetch/SelectFetch"
+import SearchTable from "./components/Search/Search"
+import TableRowInfo from "./components/TableRowInfo/TableRowInfo"
 import Loader from "./components/Loader/Loader"
 import { OnSort } from "./utils/onSort"
 import ReactPaginate from 'react-paginate'
-import SearchTable from "./components/Search/Search"
+
 
 const App = function () {
 
@@ -19,6 +21,7 @@ const App = function () {
   const [pageCount, setPageCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
   const [search, setSearch] = useState('');
+  const [activeRow, setActiveRow] = useState(null)
 
 
   useEffect(() => {
@@ -26,6 +29,7 @@ const App = function () {
       const fetchTableApi = async () => {
         const res = await fetch(url)
         const data = await (res.json());
+        console.log(data)
         setPageCount(Math.ceil(data.length / pageSize));
         setInfo(OnSort(data, sortField, sort));
         setLoading(false)
@@ -59,6 +63,10 @@ const App = function () {
     setSearch(value);
   }
 
+  const onRowSelected = row => {
+    setActiveRow(row)
+  }
+
   const getFilteredInfo = (value) => {
     if (!search) {
       return info
@@ -83,8 +91,17 @@ const App = function () {
       {
         fetchStatus ? !loading ? <>
           <SearchTable onSearch={handlerSearchPage}></SearchTable>
-          <InfoTable info={displayData} onSorted={onSorted} sort={sort} sortField={sortField}>
+          <InfoTable info={displayData}
+            onSorted={onSorted}
+            sort={sort}
+            sortField={sortField}
+            rowSelect={onRowSelected}
+
+          >
           </InfoTable>
+          {
+            activeRow ? <TableRowInfo activeRow={activeRow}></TableRowInfo> : null
+          }
         </>
           : <Loader></Loader> :
           <SelectFetch setFetch={setFetch}

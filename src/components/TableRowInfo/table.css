@@ -1,0 +1,18 @@
+.row-info-wrapper {
+    width: 100vw;
+    padding-left: 2em;
+}
+
+.row-info-form {
+    float: left;
+}
+.row-info-form textarea {
+    width: 300px;
+    height: 150px;
+    padding: .5em;
+}
+.row-info-adress {
+    margin-top: 4vh;
+    padding-left: 1em;
+    float: left;
+}
