@@ -1,0 +1,28 @@
+.add-info-table {
+    padding: 1em;
+    width: 100vw;
+}
+
+.add-info-table form {
+    float:left;
+}
+
+.add-info-table form label {
+    display: inline-block;
+    left: 1;
+    font-size: 1.5em;
+    width: 170px;
+    margin-left: 1em;
+}
+
+.addInfoBtn {
+    margin-left: 1em;
+    height: 2em;
+    width: 15em;
+    background-color: #3498db;
+    color: white;
+    border-collapse: collapse;
+    border: 1px solid #3498db;
+    box-shadow: 0 0 10px  #3498db;
+    cursor: pointer;
+}

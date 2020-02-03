@@ -4,6 +4,7 @@ import InfoTable from "./components/InfoTable/InfoTable"
 import SelectFetch from "./components/SelectFetch/SelectFetch"
 import SearchTable from "./components/Search/Search"
 import TableRowInfo from "./components/TableRowInfo/TableRowInfo"
+import AddNewInfo from "./components/AddNewInfo/AddNewInfo"
 import Loader from "./components/Loader/Loader"
 import { OnSort } from "./utils/onSort"
 import ReactPaginate from 'react-paginate'
@@ -29,7 +30,6 @@ const App = function () {
       const fetchTableApi = async () => {
         const res = await fetch(url)
         const data = await (res.json());
-        console.log(data)
         setPageCount(Math.ceil(data.length / pageSize));
         setInfo(OnSort(data, sortField, sort));
         setLoading(false)
@@ -86,11 +86,20 @@ const App = function () {
   const indexOfFirst = indexOfLast - pageSize;
   const displayData = !!(filteredInfo) ? filteredInfo.slice(indexOfFirst, indexOfLast) : null;
 
+  const handlerAddInfo = (newInfo) => {
+    const newInInfo = info.concat();
+    newInInfo.push(newInfo);
+    setInfo(newInInfo);
+    console.log(info)
+
+
+  }
   return (
     <section className="App">
       {
         fetchStatus ? !loading ? <>
           <SearchTable onSearch={handlerSearchPage}></SearchTable>
+          <AddNewInfo addNewInfo={handlerAddInfo}></AddNewInfo>
           <InfoTable info={displayData}
             onSorted={onSorted}
             sort={sort}
